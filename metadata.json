@@ -1,0 +1,6 @@
+{
+  "name": "JS Engine Exploitation Heatmap",
+  "description": "An interactive, bilingual (English & Chinese) potency heatmap of 2026 JavaScript engine security research concepts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
