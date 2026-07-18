@@ -1,3 +1,4 @@
+<iframe width="560" height="315" src="https://www.youtube.com/embed/maWnIKH3JQI?si=KLWatzjzyk8zxLdm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 # JS Engine Exploitation Heatmap (2026)
 
 An interactive, bilingual (English & Chinese) potency heatmap summarizing the state-of-the-art JavaScript compiler and WebAssembly security research concepts from the first episode of the "Meet the Hacker" series (presented by Samuel GroÃŸ).
