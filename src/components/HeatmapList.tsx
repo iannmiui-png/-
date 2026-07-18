@@ -2,19 +2,28 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp, Flame, HelpCircle, ArrowUpRight } from "lucide-react";
 import { HeatmapItem, SECTIONS } from "../data";
 import { AnimatePresence, motion } from "motion/react";
+import SandpileChamber from "./SandpileChamber";
 
 interface HeatmapListProps {
   items: HeatmapItem[];
   lang: 'en' | 'zh';
   activeSection: string | null;
   selectedPotency: number | null;
+  isPlaying: boolean;
+  currentTime: number;
+  duration: number;
+  activeItemIndex: number;
 }
 
 export default function HeatmapList({
   items,
   lang,
   activeSection,
-  selectedPotency
+  selectedPotency,
+  isPlaying,
+  currentTime,
+  duration,
+  activeItemIndex
 }: HeatmapListProps) {
   const isZh = lang === 'zh';
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -135,14 +144,23 @@ export default function HeatmapList({
                       </span>
 
                       {/* Title block */}
-                      <div className="flex-1 min-w-0 pr-2">
+                      <div className="flex-1 min-w-0 pr-2 self-center">
                         <p className={`text-sm leading-relaxed ${styles.textColor} break-words`}>
                           {isZh ? item.zhText : item.enText}
                         </p>
                       </div>
 
+                      {/* Sandpile visual chamber */}
+                      <SandpileChamber
+                        itemIndex={item.id - 1}
+                        activeItemIndex={activeItemIndex}
+                        isPlaying={isPlaying}
+                        currentTime={currentTime}
+                        duration={duration}
+                      />
+
                       {/* Expand Chevron */}
-                      <div className="shrink-0 text-gray-500 mt-1">
+                      <div className="shrink-0 text-gray-500 self-center">
                         {isExpanded ? (
                           <ChevronUp className="w-4 h-4 text-emerald-400" />
                         ) : (

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Flame, Info, Terminal, RefreshCw, Layers } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Flame, Info, Terminal, RefreshCw, Layers, HelpCircle } from "lucide-react";
 import { HEATMAP_ITEMS } from "./data";
 import Header from "./components/Header";
 import HeatmapList from "./components/HeatmapList";
@@ -12,7 +12,41 @@ export default function App() {
   const [selectedPotency, setSelectedPotency] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
+  // Playback & Sandpile states
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(2635); // Default 43m 55s
+  const [isSimulating, setIsSimulating] = useState(false);
+  const [simulationSpeed, setSimulationSpeed] = useState(1);
+
   const isZh = lang === 'zh';
+
+  // Active item in the absolute 50 item list (0 to 49)
+  const activeItemIndex = Math.min(400, Math.floor((currentTime / duration) * 50));
+  const activeItemBounded = Math.max(0, Math.min(49, activeItemIndex));
+
+  // Simulation Clock Tick Loop
+  useEffect(() => {
+    let timerId: any;
+    if (isSimulating && isPlaying) {
+      const intervalMs = 100;
+      timerId = setInterval(() => {
+        setCurrentTime((prev) => {
+          const next = prev + (simulationSpeed * (intervalMs / 1000));
+          if (next >= duration) {
+            setIsPlaying(false);
+            return duration;
+          }
+          return next;
+        });
+      }, intervalMs);
+    }
+    return () => {
+      if (timerId) clearInterval(timerId);
+    };
+  }, [isSimulating, isPlaying, simulationSpeed, duration]);
+
+  // Compute stat counters on the complete unfiltered dataset
 
   // Compute stat counters on the complete unfiltered dataset
   const peakCount = HEATMAP_ITEMS.filter((item) => item.potency === 5).length;
@@ -86,7 +120,19 @@ export default function App() {
         />
 
         {/* Video Embed Player */}
-        <VideoEmbed lang={lang} />
+        <VideoEmbed
+          lang={lang}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          currentTime={currentTime}
+          setCurrentTime={setCurrentTime}
+          duration={duration}
+          setDuration={setDuration}
+          isSimulating={isSimulating}
+          setIsSimulating={setIsSimulating}
+          simulationSpeed={simulationSpeed}
+          setSimulationSpeed={setSimulationSpeed}
+        />
 
         {/* Filters state badge and reset indicator */}
         {hasActiveFilters && (
@@ -120,6 +166,10 @@ export default function App() {
             lang={lang}
             activeSection={activeSection}
             selectedPotency={selectedPotency}
+            isPlaying={isPlaying}
+            currentTime={currentTime}
+            duration={duration}
+            activeItemIndex={activeItemBounded}
           />
         ) : (
           <div className="py-16 text-center space-y-3 rounded-2xl bg-gray-900/10 border border-gray-800/60 max-w-lg mx-auto">
