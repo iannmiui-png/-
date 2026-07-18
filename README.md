@@ -1,13 +1,12 @@
-from https://www.youtube.com/maWnIKH3JQI
 # JS Engine Exploitation Heatmap (2026)
 
-An interactive, bilingual (English & Chinese) potency heatmap summarizing the state-of-the-art JavaScript compiler and WebAssembly security research concepts from the first episode of the "Meet the Hacker" series (presented by Samuel GroÃŸ).
+An interactive, bilingual (English & Chinese) potency heatmap summarizing the state-of-the-art JavaScript compiler and WebAssembly security research concepts from the first episode of the "Meet the Hacker" series (presented by Samuel Groß).
 
 The application is structured as a client-side single-page application (SPA) built with **React**, **Vite**, **TypeScript**, and **Tailwind CSS**. It contains 50 carefully indexed security research points rated from 1 (low) to 5 (peak potency) reflecting their centrality to modern exploit development.
 
 ---
 
-## ðŸš€ Hosting on GitHub Pages
+## 🚀 Hosting on GitHub Pages
 
 **Yes, you can absolutely host this application on GitHub Pages!** 
 
@@ -50,10 +49,11 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-size: 20
-          cache: 'npm'
+          node-version: 22 # Use Node 22 (LTS)
+          # Note: 'cache: npm' and 'npm ci' require a package-lock.json.
+          # To support repositories without lock files, we use standard npm install.
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Build
         run: npm run build
       - name: Upload artifact
@@ -97,7 +97,7 @@ If you prefer manual deployment:
 
 ---
 
-## ðŸ“– English Briefing & Core Concepts
+## 📖 English Briefing & Core Concepts
 
 This heatmap acts as an educational index to understand the modern attack surface of high-performance JIT compilers and sandboxing mitigations:
 
@@ -117,11 +117,11 @@ Modern JIT engines (like V8's Turbofan) optimize execution speeds by using **Ran
 - **Hardware Defense (ARM POE2)**: Future ARM architectures permit user-space permission overlays (POE2) to restrict code segment page permissions in microseconds without invoking kernel context-switching penalties.
 
 ### 4. The AI Security Revolution
-The integration of LLMs (such as Googleâ€™s **Big Sleep** project and interactive agentic research platforms like **Claude Code**) has fundamentally shifted bug research. By analyzing complex semantic structures, AI agents can successfully isolate subtle logic bugsâ€”such as Web Audio thread float-mode mismatches and 28-bit exception truncationsâ€”which classic fuzzers were mathematically incapable of detecting.
+The integration of LLMs (such as Google’s **Big Sleep** project and interactive agentic research platforms like **Claude Code**) has fundamentally shifted bug research. By analyzing complex semantic structures, AI agents can successfully isolate subtle logic bugs—such as Web Audio thread float-mode mismatches and 28-bit exception truncations—which classic fuzzers were mathematically incapable of detecting.
 
 ---
 
-## ðŸ› ï¸ Local Development Setup
+## 🛠️ Local Development Setup
 
 To run this application locally:
 

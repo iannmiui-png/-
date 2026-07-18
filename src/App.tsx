@@ -4,6 +4,7 @@ import { HEATMAP_ITEMS } from "./data";
 import Header from "./components/Header";
 import HeatmapList from "./components/HeatmapList";
 import ReferenceLists from "./components/ReferenceLists";
+import VideoEmbed from "./components/VideoEmbed";
 
 export default function App() {
   const [lang, setLang] = useState<'zh' | 'en'>('zh');
@@ -83,6 +84,9 @@ export default function App() {
           medCount={medCount}
           lowCount={lowCount}
         />
+
+        {/* Video Embed Player */}
+        <VideoEmbed lang={lang} />
 
         {/* Filters state badge and reset indicator */}
         {hasActiveFilters && (
