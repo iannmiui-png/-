@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main", "master" ] # Triggers whenever you push to main/master
+    branches: [ "main" ] # change to master or your active branch if needed
 
 permissions:
   contents: read
@@ -26,13 +26,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 22 # Explicitly use Node 22 (LTS)
+          # Note: 'cache: npm' is removed because it requires a package-lock.json file
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install # Works perfectly without a package-lock.json
 
-      - name: Build static site
+      - name: Build
         run: npm run build
 
       - name: Upload artifact
